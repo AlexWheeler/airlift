@@ -1,11 +1,10 @@
 (ns airlift.core
-  (:gen-class)
-  (:require [clojure.core.async :refer [chan <! >! go]]))
+  (:gen-class))
 
-(defn foo
+(defn export-tables
   []
   (let [config (read-string (slurp "config.edn"))]
     (println config)))
 
 (defn -main [& args]
-  (foo))
+  (export-tables))
