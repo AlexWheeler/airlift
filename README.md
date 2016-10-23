@@ -1,6 +1,6 @@
 # Airlift
 
-A Clojure library for exporting Microsft Sql Server tables as csv files to your SFTP server.
+A Clojure library for building .jars to export Microsft Sql Server tables as csv files to your SFTP server.
 
 ## Usage
 
