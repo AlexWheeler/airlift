@@ -1,14 +1,19 @@
-# airlift
+# Airlift
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure library for exporting Microsft Sql Server tables as csv files to your SFTP server.
 
 ## Usage
 
-FIXME
+Will eventually host jar, but for now assuming you're using leiningen, build .jar:
+
+`lein uberjar`
+
+Fill out config.edn file with database / sftp credentials and place in same directory as .jar.
+
+Configure task to run `java -jar path_to_jar`.
 
 ## License
 
 Copyright © 2016 FIXME
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Distributed under the Eclipse Public License version 1.0 or any later version.
