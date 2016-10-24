@@ -1,5 +1,6 @@
 (ns airlift.core
-  (:gen-class))
+  (:gen-class)
+  (:require [airlift.db :as db]))
 
 (defn export-tables
   []
@@ -7,4 +8,4 @@
     (println config)))
 
 (defn -main [& args]
-  (export-tables))
+  (println (db/query "SELECT * Table")))
