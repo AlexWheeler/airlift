@@ -14,6 +14,4 @@ Configure task to run `java -jar path_to_jar`.
 
 ## License
 
-Copyright © 2016 FIXME
-
 Distributed under the Eclipse Public License version 1.0 or any later version.
