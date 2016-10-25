@@ -2,19 +2,32 @@
   (:require [clojure.java.jdbc :as sql])
   (:import [com.microsoft.sqlserver.jdbc.SQLServerDriver]))
 
-(def db (com.microsoft.sqlserver.jdbc.SQLServerDriver.))
+(def ^:private driver (com.microsoft.sqlserver.jdbc.SQLServerDriver.))
 
-(defn config [username password]
-  "returns correct java.util.Properties instance"
+(defn- config [username password]
+  "returns java.util.Properties instance"
   (let [c (java.util.Properties.)]
     (.setProperty c "user" username)
     (.setProperty c "password" password)
     c))
 
-(defn connect [db host port dbname config]
-  (.connect db (str "jdbc:sqlserver://" host ":" port ";databaseName=" dbname) config))
+(defn- extract-columns [metadata]
+  "extracts table columns columns"
+  (for [index (range 1 (.getColumnCount metadata))]
+    (.getColumnName metadata index)))
 
-(defn query [query]
-  (let  [connection (connect db "127.0.0.1" "1433" "db_name" (config "username" "password"))]
-    (.. connection (createStatement) (executeQuery query))))
+(defn- connect [db dbname config]
+  (.connect db (str "jdbc:sqlserver://127.0.0.1:1433;databaseName=" dbname) config))
 
+(defn init [dbname username password]
+  "Returns new database connection"
+  (connect driver dbname (config username password)))
+
+(defn query [conn query]
+  "Executes query on db connection and returns ResultSet"
+  (.. conn (createStatement) (executeQuery query)))
+
+(defn columns [response]
+  "Returns vector of table columns"
+  (->> (.getMetaData response)
+       (extract-columns)))

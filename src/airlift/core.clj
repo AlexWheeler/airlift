@@ -8,4 +8,8 @@
     (println config)))
 
 (defn -main [& args]
-  (println (db/query "SELECT * Table")))
+  (let [conn (db/init "table_name" "username" "password")]
+    (let [res (db/query conn "SELECT * FROM TABLE")]
+      (let [columns (db/columns res)]
+        (while (.next res)
+          (println (map #(.getString res %) columns)))))))
