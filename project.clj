@@ -8,7 +8,6 @@
                  [org.clojure/core.async "0.2.395"]
                  [org.clojure/java.jdbc  "0.6.2-alpha3"]
                  [com.microsoft/sqljdbc4  "3.0"]
-                 [clj-ssh  "0.5.14"]
                  [com.jcraft/jsch  "0.1.53"]
                  ]
   :main airlift.core

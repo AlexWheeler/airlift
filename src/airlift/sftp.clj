@@ -1,6 +1,4 @@
 (ns airlift.sftp
-  (:require
-    [clj-ssh.ssh :as ssh])
   (:import
     [com.jcraft.jsch JSch]))
 
