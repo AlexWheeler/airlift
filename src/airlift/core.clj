@@ -10,15 +10,15 @@
   (let [conn (db/init (select-keys (:db config) [:name :username :password]))
         chan (ch/channel (:sftp config))]
     (doseq [table (get-in config [:db :tables])]
-      (let [data []  res (db/query conn (str "SELECT * FROM " table))]
-        (let [headers (->> (first res)
-                           (keys)
-                           (map name)
-                           (vec)
-                           (conj data))
-               body (->> (rest res)
-                         (map (comp vec vals))
+      (let [res (db/query conn (str "SELECT * FROM " table))
+            headers (->> (first res)
+                         (keys)
+                         (map name)
                          (vec)
-                         (apply conj headers))]
+                         (conj []))
+            body (->> (rest res)
+                      (map (comp vec vals))
+                      (vec)
+                      (apply conj headers))]
         (csv/write body (str table ".csv"))
-        (ch/upload chan (str table ".csv")))))))
+        (ch/upload chan (str table ".csv"))))))
