@@ -25,7 +25,7 @@
 
 (defn query [conn query]
   "Executes query on db connection and returns ResultSet"
-  (.. conn (createStatement) (executeQuery query)))
+  (resultset-seq (.. conn (createStatement) (executeQuery query))))
 
 (defn columns [response]
   "Returns vector of table columns"

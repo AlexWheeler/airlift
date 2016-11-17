@@ -11,17 +11,19 @@
 
 (def creds {:host "" :username "" :password ""})
 
-;;(defn -main [& args]
-;;  (let [chan (ch/channel creds)]
-;;    (ch/upload chan "hello.txt")))
-
 (defn -main [& args]
   (let [conn (db/init "" "" "")
         chan (ch/channel creds)]
     (doseq [table []]
-      (let [res (db/query conn (str "SELECT * FROM " table))]
-        (let [columns (db/columns res) data (atom [])]
-          (while (.next res)
-            (swap! data conj (map #(.getString res %) columns)))
-          (csv/write @data (str table ".csv"))
-          (ch/upload chan (str table ".csv")))))))
+      (let [data []  res (db/query conn (str "SELECT * FROM " table))]
+        (let [headers (->> (first res)
+                           (keys)
+                           (map name)
+                           (vec)
+                           (conj data))
+               body (->> (rest res)
+                         (map (comp vec vals))
+                         (vec)
+                         (apply conj headers))]
+        (csv/write body (str table ".csv"))
+        (ch/upload chan (str table ".csv")))))))
