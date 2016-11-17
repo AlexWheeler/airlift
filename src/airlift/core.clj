@@ -4,17 +4,12 @@
             [airlift.channel :as ch]
             [airlift.csv :as csv]))
 
-(defn export-tables
-  []
-  (let [config (read-string (slurp "config.edn"))]
-    (println config)))
-
-(def creds {:host "" :username "" :password ""})
+(def config (clojure.edn/read-string (slurp "config.edn")))
 
 (defn -main [& args]
-  (let [conn (db/init "" "" "")
-        chan (ch/channel creds)]
-    (doseq [table []]
+  (let [conn (db/init (select-keys (:db config) [:name :username :password]))
+        chan (ch/channel (:sftp config))]
+    (doseq [table (get-in config [:db :tables])]
       (let [data []  res (db/query conn (str "SELECT * FROM " table))]
         (let [headers (->> (first res)
                            (keys)

@@ -1,16 +1,20 @@
-{:sftp
- {
-  :username ""
-  :password ""
-  :host ""
-  }
- :db
-  {
-    :user ""
-    :password ""
-    :address ""
-    :port "1433"
-    :name ""
-    :tables []
-   }
+{
+ :sftp {
+        :username  ""
+        :password ""
+        :host ""
+        }
+ :db {
+      :username ""
+      :password ""
+      :address "localhost"
+      :port "1433"
+      :name ""
+      :tables [
+               ""
+               ""
+               ""
+               ""
+               ]
+      }
  }

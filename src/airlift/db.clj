@@ -19,9 +19,9 @@
 (defn- connect [db dbname config]
   (.connect db (str "jdbc:sqlserver://127.0.0.1:1433;databaseName=" dbname) config))
 
-(defn init [dbname username password]
+(defn init [{:keys [name username password]}]
   "Returns new database connection"
-  (connect driver dbname (config username password)))
+  (connect driver name (config username password)))
 
 (defn query [conn query]
   "Executes query on db connection and returns ResultSet"
