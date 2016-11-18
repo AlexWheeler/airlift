@@ -11,14 +11,6 @@
         chan (ch/channel (:sftp config))]
     (doseq [table (get-in config [:db :tables])]
       (let [res (db/query conn (str "SELECT * FROM " table))
-            headers (->> (first res)
-                         (keys)
-                         (map name)
-                         (vec)
-                         (conj []))
-            body (->> (rest res)
-                      (map (comp vec vals))
-                      (vec)
-                      (apply conj headers))]
-        (csv/write body (str table ".csv"))
+            csv-data (db/resultset->csv res)]
+        (csv/write csv-data (str table ".csv"))
         (ch/upload chan (str table ".csv"))))))
