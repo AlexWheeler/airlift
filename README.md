@@ -10,6 +10,29 @@ Will eventually host jar, but for now assuming you're using leiningen, build .ja
 
 Fill out config.edn file with database / sftp credentials and place in same directory as .jar.
 
+```edn
+{
+ :sftp {
+        :username  ""
+        :password ""
+        :host ""
+        }
+ :db {
+      :username ""
+      :password ""
+      :address "localhost"
+      :port "1433"
+      :name ""
+      :tables [
+               ""
+               ""
+               ""
+               ""
+               ]
+      }
+ }
+```
+
 Configure task to run `java -jar path_to_jar`.
 
 ## License
