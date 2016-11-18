@@ -4,9 +4,9 @@ A Clojure library for building .jars to export Microsft Sql Server tables as csv
 
 ## Usage
 
-Will eventually host jar, but for now assuming you're using leiningen, build .jar:
+Build .jar
 
-`lein uberjar`
+leiningen users: `lein uberjar`
 
 Fill out config.edn file with database / sftp credentials and place in same directory as .jar.
 
