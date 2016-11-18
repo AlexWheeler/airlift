@@ -31,3 +31,14 @@
   "Returns vector of table columns"
   (->> (.getMetaData response)
        (extract-columns)))
+
+(defn resultset->csv [resultSet]
+  "Given a database result returns a csv-like vector that can be written to disk"
+  (let [headers (->> (first resultSet)
+                     (keys)
+                     (map name)
+                     (vec))
+        body (->> (rest resultSet)
+                  (map (comp vec vals))
+                  (vec))]
+    (apply conj (conj [] headers) body)))
