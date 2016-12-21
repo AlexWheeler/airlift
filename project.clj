@@ -3,7 +3,7 @@
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.8.0"]
+  :dependencies [[org.clojure/clojure "1.9.0-alpha14"]
                  [org.clojure/data.csv "0.1.3"]
                  [org.clojure/core.async "0.2.395"]
                  [org.clojure/java.jdbc  "0.6.2-alpha3"]
@@ -13,4 +13,6 @@
   :main airlift.core
   :aot [airlift.core]
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {
+             :uberjar {:aot :all}
+             :dev {:dependencies [[org.clojure/test.check  "0.9.0"]]}})
